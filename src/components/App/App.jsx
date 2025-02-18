@@ -41,42 +41,29 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handleOutsideClick = (evt) => {
-      const modals = document.querySelectorAll(".modal");
-      modals.forEach((modal) =>
-        modal.addEventListener("mousedown", (evt) => {
-          if (evt.target.classList.contains("modal_opened")) {
-            closeActiveModal();
-          }
-        })
-      );
-    };
-
     const handleEscKey = (evt) => {
       if (evt.key === "Escape") {
-        const modalOpened = document.querySelector(".modal_opened");
-        if (modalOpened) {
-          closeActiveModal();
-        }
+        closeActiveModal();
       }
     };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    document.addEventListener("keydown", handleEscKey);
+    window.addEventListener("keydown", handleEscKey);
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("keydown", handleEscKey);
+      window.removeEventListener("keydown", handleEscKey);
     };
   }, []);
 
   useEffect(() => {
-    getWeather(coordinates, APIkey)
-      .then((data) => {
-        const filteredData = filterWeatherData(data);
-        setWeatherData(filteredData);
-      })
-      .catch(console.error);
+    const handleOutsideClick = (evt) => {
+      if (evt.target.classList.contains("modal_opened")) {
+        closeActiveModal();
+      }
+    };
+    window.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutsideClick);
+    };
   }, []);
 
   return (
@@ -89,11 +76,11 @@ function App() {
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
-          Name{" "}
+          Name
           <input
             type="text"
             className="modal__input"
@@ -102,7 +89,7 @@ function App() {
           />
         </label>
         <label htmlFor="imageUrl" className="modal__label">
-          Image{" "}
+          Image
           <input
             type="url"
             className="modal__input"
@@ -117,21 +104,36 @@ function App() {
               htmlFor="hot"
               className="modal__label modal__label_type_radio"
             >
-              <input type="radio" className="modal__radio-input" id="hot" />
+              <input
+                type="radio"
+                className="modal__radio-input"
+                id="hot"
+                name="weather"
+              />
               Hot
             </label>
             <label
               htmlFor="warm"
               className="modal__label modal__label_type_radio"
             >
-              <input type="radio" className="modal__radio-input" id="warm" />
+              <input
+                type="radio"
+                className="modal__radio-input"
+                id="warm"
+                name="weather"
+              />
               Warm
             </label>
             <label
               htmlFor="cold"
               className="modal__label modal__label_type_radio"
             >
-              <input type="radio" className="modal__radio-input" id="cold" />
+              <input
+                type="radio"
+                className="modal__radio-input"
+                id="cold"
+                name="weather"
+              />
               Cold
             </label>
           </legend>
