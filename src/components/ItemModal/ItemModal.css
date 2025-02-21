@@ -19,9 +19,6 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.modal__close-icon {
-}
-
 .modal__image {
   width: 100%;
 }
@@ -30,6 +27,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 20px 32px 32px;
 }
 
 .modal__caption {
@@ -40,8 +38,4 @@
 .modal__weather {
   font-size: 20px;
   margin: 0;
-}
-
-.modal__footer {
-  padding: 20px 32px 32px;
 }
