@@ -1,0 +1,10 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  gap: 116px;
+}
+
+.profile__sidebar {
+  max-width: 229px;
+  width: 100%;
+}

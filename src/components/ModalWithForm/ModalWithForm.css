@@ -82,6 +82,10 @@
   flex-direction: column;
 }
 
+.modal__radio-input {
+  cursor: pointer;
+}
+
 .modal__submit {
   margin-top: 8px;
   width: 124px;

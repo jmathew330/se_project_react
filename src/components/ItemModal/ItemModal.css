@@ -2,7 +2,7 @@
   max-width: 498px;
   max-height: 610px;
   width: 100%;
-  padding: 0;
+  padding: 0 !important;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
@@ -20,7 +20,8 @@
 }
 
 .modal__image {
-  width: 100%;
+  width: 100% !important;
+  padding: 0;
 }
 
 .modal__footer {
@@ -28,6 +29,7 @@
   flex-direction: column;
   gap: 12px;
   padding: 20px 32px 32px;
+  position: relative;
 }
 
 .modal__caption {
@@ -38,4 +40,15 @@
 .modal__weather {
   font-size: 20px;
   margin: 0;
+}
+
+.modal__delete {
+  position: absolute;
+  font-size: 20px;
+  top: 20px;
+  right: 32px;
+  color: #ff4d00;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
