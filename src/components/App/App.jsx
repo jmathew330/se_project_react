@@ -53,18 +53,18 @@ function App() {
     addItems(newItem)
       .then((addedItem) => {
         setClothingItems([addedItem, ...clothingItems]);
+        closeActiveModal();
       })
       .catch(console.error);
-    closeActiveModal();
   };
 
   const handleDeleteItem = (id) => {
     deleteItem(id)
       .then(() => {
         setClothingItems(clothingItems.filter((item) => item._id !== id));
+        closeActiveModal();
       })
       .catch(console.error);
-    closeActiveModal();
   };
 
   useEffect(() => {
@@ -85,30 +85,28 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!activeModal) return;
+
     const handleEscKey = (evt) => {
       if (evt.key === "Escape") {
         closeActiveModal();
       }
     };
-    window.addEventListener("keydown", handleEscKey);
 
-    return () => {
-      window.removeEventListener("keydown", handleEscKey);
-    };
-  }, []);
-
-  useEffect(() => {
     const handleOutsideClick = (evt) => {
       if (evt.target.classList.contains("modal_opened")) {
         closeActiveModal();
       }
     };
+
+    window.addEventListener("keydown", handleEscKey);
     window.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
+      window.removeEventListener("keydown", handleEscKey);
       window.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, []);
+  }, [activeModal]);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -134,6 +132,7 @@ function App() {
                 <Profile
                   clothingItems={clothingItems}
                   handleCardClick={handleCardClick}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

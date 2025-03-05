@@ -20,6 +20,7 @@
   background-color: transparent;
   border: none;
   color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
 .clothes__list {

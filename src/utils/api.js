@@ -1,9 +1,14 @@
 const baseUrl = "http://localhost:3001";
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error: ${res.status}`);
+}
+
 function getItems() {
-  return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
 function addItems(newItem) {
@@ -13,23 +18,13 @@ function addItems(newItem) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newItem),
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  }).then(checkResponse);
 }
 
 function deleteItem(id) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  }).then(checkResponse);
 }
 
 export { getItems, addItems, deleteItem };
